@@ -60,46 +60,102 @@ let result = 0;
 
 equals.addEventListener("click", function(e) {
     console.log(joinedvalues.length);
+
+    if (first !== 0) {
+        console.log(first !== 0)
+        for (let i = 0; i < joinedvalues.length; i++) {
+            if (joinedvalues[i].includes("-")) {
+                let op = joinedvalues[i];
+                first = joinedvalues.slice(0, i);
+                second = joinedvalues.slice(i + 1, joinedvalues.length);
+                result = operate(op, first, second);
+                display.value = "" + result;
+                result = first;
+                joinedvalues.length == 0;
+                values.length = 0;
+                joinedvalues.push(result);
+
+            }
+            if (joinedvalues[i].includes("/")) {
+                let op = joinedvalues[i];
+                first = joinedvalues.slice(0, i);
+                second = joinedvalues.slice(i + 1, joinedvalues.length);
+                result = operate(op, first, second);
+                display.value = "" + result;
+                result = first;
+                joinedvalues.length == 0;
+                values.length = 0;
+                joinedvalues.push(result);
+            }
+            if (joinedvalues[i].includes("*")) {
+                let op = joinedvalues[i];
+                first = joinedvalues.slice(0, i);
+                second = joinedvalues.slice(i + 1, joinedvalues.length);
+                result = operate(op, first, second);
+                display.value = "" + result;
+                result = first;
+                joinedvalues.length == 0;
+                values.length = 0;
+                joinedvalues.push(result);
+            }
+            if (joinedvalues[i].includes("+")) {
+                let op = joinedvalues[i];
+                first = joinedvalues.slice(0, i);
+                second = joinedvalues.slice(i + 1, joinedvalues.length);
+                result = operate(op, parseFloat(first), parseFloat(second));
+                display.value = "" + result;
+                result = first;
+                joinedvalues.length == 0;
+                values.length = 0;
+                joinedvalues.push(result);
+            }
+        }
+
+    }
     for (let i = 0; i < joinedvalues.length; i++) {
         if (joinedvalues[i].includes("-")) {
             let op = joinedvalues[i];
             first = joinedvalues.slice(0, i);
-            console.log(first);
-            console.log(op);
             second = joinedvalues.slice(i + 1, joinedvalues.length);
-            console.log(second);
             result = operate(op, first, second);
             display.value = "" + result;
+            result = first;
+            joinedvalues.length == 0;
+            values.length = 0;
+            joinedvalues.push(result);
         }
         if (joinedvalues[i].includes("/")) {
             let op = joinedvalues[i];
             first = joinedvalues.slice(0, i);
-            console.log(first);
-            console.log(op);
             second = joinedvalues.slice(i + 1, joinedvalues.length);
-            console.log(second);
             result = operate(op, first, second);
             display.value = "" + result;
+            result = first;
+            joinedvalues.length == 0;
+            values.length = 0;
+            joinedvalues.push(result);
         }
         if (joinedvalues[i].includes("*")) {
             let op = joinedvalues[i];
             first = joinedvalues.slice(0, i);
-            console.log(first);
-            console.log(op);
             second = joinedvalues.slice(i + 1, joinedvalues.length);
-            console.log(second);
             result = operate(op, first, second);
             display.value = "" + result;
+            result = first;
+            joinedvalues.length == 0;
+            values.length = 0;
+            joinedvalues.push(result);
         }
         if (joinedvalues[i].includes("+")) {
             let op = joinedvalues[i];
             first = joinedvalues.slice(0, i);
-            console.log(first);
-            console.log(op);
             second = joinedvalues.slice(i + 1, joinedvalues.length);
-            console.log(second);
             result = operate(op, parseFloat(first), parseFloat(second));
             display.value = "" + result;
+            result = first;
+            joinedvalues.length == 0;
+            values.length = 0;
+            joinedvalues.push(result);
         }
     }
 });
