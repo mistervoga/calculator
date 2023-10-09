@@ -1,167 +1,111 @@
 "use strict";
 
-const add = (a, b) => a + b;
-const substract = (a, b) => a - b;
-const multiply = (a, b) => a * b;
-const divide = (a, b) => a / b;
-
-function operate(operator, a, b) {
-    switch (operator) {
-        case "+":
-            return add(a, b);
-        case "-":
-            return substract(a, b);
-        case "*":
-            return multiply(a, b);
-        case "/":
-            return divide(a, b);
-    }
-}
-const display = document.querySelector("input");
+const display = document.querySelector(".display");
 const numbers = document.querySelectorAll(".num");
+const operators = document.querySelectorAll(".operator");
 const equals = document.querySelector(".equals");
 const clear = document.querySelector(".delete-all");
-const operators = document.querySelectorAll(".operator");
 const decimal = document.querySelector(".decimal");
 
-let first = 0;
-let second = 0;
-let values = [];
-let joinedvalues = [];
-let onlyoperator = false;
+let firstOperand = ""; // Stores the first operand
+let operator = null; // Stores the selected operator
+let secondOperand = ""; // Stores the second operand
 
-numbers.forEach(number =>
-    number.addEventListener("click", function(e) {
-        first = e.target.textContent;
-        values.push(first);
-        console.log(values);
-        joinedvalues = values.join("");
-        console.log(joinedvalues);
-        display.value += e.target.textContent;
-    })
-);
+// Function to update the display
+function updateDisplay() {
+  display.value = firstOperand + (operator ? operator : "") + secondOperand;
+}
 
-operators.forEach(operator =>
-    operator.addEventListener("click", function(e) {
-        if (!isNaN(display.value)) {
-            display.value += e.target.value;
-            onlyoperator = true;
-            values.push(e.target.textContent);
-            console.log(values);
-        }
-
-        if (onlyoperator == true) {
-            return;
-        }
-    })
-);
-
-let result = 0;
-
-equals.addEventListener("click", function(e) {
-    console.log(joinedvalues.length);
-
-    if (first !== 0) {
-        console.log(first !== 0)
-        for (let i = 0; i < joinedvalues.length; i++) {
-            if (joinedvalues[i].includes("-")) {
-                let op = joinedvalues[i];
-                first = joinedvalues.slice(0, i);
-                second = joinedvalues.slice(i + 1, joinedvalues.length);
-                result = operate(op, first, second);
-                display.value = "" + result;
-                result = first;
-                joinedvalues.length == 0;
-                values.length = 0;
-                joinedvalues.push(result);
-
-            }
-            if (joinedvalues[i].includes("/")) {
-                let op = joinedvalues[i];
-                first = joinedvalues.slice(0, i);
-                second = joinedvalues.slice(i + 1, joinedvalues.length);
-                result = operate(op, first, second);
-                display.value = "" + result;
-                result = first;
-                joinedvalues.length == 0;
-                values.length = 0;
-                joinedvalues.push(result);
-            }
-            if (joinedvalues[i].includes("*")) {
-                let op = joinedvalues[i];
-                first = joinedvalues.slice(0, i);
-                second = joinedvalues.slice(i + 1, joinedvalues.length);
-                result = operate(op, first, second);
-                display.value = "" + result;
-                result = first;
-                joinedvalues.length == 0;
-                values.length = 0;
-                joinedvalues.push(result);
-            }
-            if (joinedvalues[i].includes("+")) {
-                let op = joinedvalues[i];
-                first = joinedvalues.slice(0, i);
-                second = joinedvalues.slice(i + 1, joinedvalues.length);
-                result = operate(op, parseFloat(first), parseFloat(second));
-                display.value = "" + result;
-                result = first;
-                joinedvalues.length == 0;
-                values.length = 0;
-                joinedvalues.push(result);
-            }
-        }
-
+// Function to handle number button clicks
+numbers.forEach((number) => {
+  number.addEventListener("click", function (e) {
+    if (operator === null) {
+      // If no operator is selected, update the first operand
+      firstOperand += e.target.value;
+    } else {
+      // If an operator is selected, update the second operand
+      secondOperand += e.target.value;
     }
-    for (let i = 0; i < joinedvalues.length; i++) {
-        if (joinedvalues[i].includes("-")) {
-            let op = joinedvalues[i];
-            first = joinedvalues.slice(0, i);
-            second = joinedvalues.slice(i + 1, joinedvalues.length);
-            result = operate(op, first, second);
-            display.value = "" + result;
-            result = first;
-            joinedvalues.length == 0;
-            values.length = 0;
-            joinedvalues.push(result);
-        }
-        if (joinedvalues[i].includes("/")) {
-            let op = joinedvalues[i];
-            first = joinedvalues.slice(0, i);
-            second = joinedvalues.slice(i + 1, joinedvalues.length);
-            result = operate(op, first, second);
-            display.value = "" + result;
-            result = first;
-            joinedvalues.length == 0;
-            values.length = 0;
-            joinedvalues.push(result);
-        }
-        if (joinedvalues[i].includes("*")) {
-            let op = joinedvalues[i];
-            first = joinedvalues.slice(0, i);
-            second = joinedvalues.slice(i + 1, joinedvalues.length);
-            result = operate(op, first, second);
-            display.value = "" + result;
-            result = first;
-            joinedvalues.length == 0;
-            values.length = 0;
-            joinedvalues.push(result);
-        }
-        if (joinedvalues[i].includes("+")) {
-            let op = joinedvalues[i];
-            first = joinedvalues.slice(0, i);
-            second = joinedvalues.slice(i + 1, joinedvalues.length);
-            result = operate(op, parseFloat(first), parseFloat(second));
-            display.value = "" + result;
-            result = first;
-            joinedvalues.length == 0;
-            values.length = 0;
-            joinedvalues.push(result);
-        }
-    }
+    updateDisplay();
+  });
 });
 
-clear.addEventListener("click", function() {
-    display.value = "";
-    joinedvalues.length == 0;
-    values.length = 0;
+// Function to handle operator button clicks
+operators.forEach((operatorButton) => {
+  operatorButton.addEventListener("click", function (e) {
+    if (firstOperand !== "") {
+      operator = e.target.value;
+      updateDisplay();
+    }
+  });
 });
+
+// Function to handle the equals button click
+equals.addEventListener("click", function () {
+  if (firstOperand !== "" && secondOperand !== "") {
+    // Perform the calculation and update the display
+    firstOperand = String(
+      operate(operator, parseFloat(firstOperand), parseFloat(secondOperand))
+    );
+    secondOperand = "";
+    operator = null;
+    updateDisplay();
+  }
+});
+
+// Function to handle the AC (clear) button click
+clear.addEventListener("click", function () {
+  firstOperand = "";
+  secondOperand = "";
+  operator = null;
+  updateDisplay();
+});
+
+// Function to handle the decimal button click
+decimal.addEventListener("click", function () {
+  if (operator === null) {
+    if (!firstOperand.includes(".")) {
+      firstOperand += ".";
+    }
+  } else {
+    if (!secondOperand.includes(".")) {
+      secondOperand += ".";
+    }
+  }
+  updateDisplay();
+});
+
+// Arithmetic operations
+function add(a, b) {
+  return a + b;
+}
+
+function subtract(a, b) {
+  return a - b;
+}
+
+function multiply(a, b) {
+  return a * b;
+}
+
+function divide(a, b) {
+  if (b === 0) {
+    return "Error"; // Handle division by zero
+  }
+  return a / b;
+}
+
+function operate(operator, a, b) {
+  switch (operator) {
+    case "+":
+      return add(a, b);
+    case "-":
+      return subtract(a, b);
+    case "*":
+      return multiply(a, b);
+    case "/":
+      return divide(a, b);
+    default:
+      return "Error"; // Handle invalid operator
+  }
+}

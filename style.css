@@ -1,88 +1,112 @@
-                                                                                    * {
-                                                                                    margin: 0;
-                                                                                    padding: 0;
-                                                                                    box-sizing: border-box;
-                                                                                }
-                                                                                
-                                                                                body {
-                                                                                    font-family: 'Stylish';
-                                                                                    font-size: 200%;
-                                                                                    color: solid black;
-                                                                                    background: rgb(172, 139, 202);
-                                                                                }
-                                                                                
-                                                                                .calculator {
-                                                                                    position: relative;
-                                                                                    width: 30%;
-                                                                                    border-radius: 15px;
-                                                                                    margin: auto;
-                                                                                    margin-top: 10%;
-                                                                                    padding: 20px 20px 40px 20px;
-                                                                                    box-shadow: 10px 10px 5px rgb(230, 210, 125);
-                                                                                    background: lightcyan;
-                                                                                }
-                                                                                
-                                                                                button:hover,
-                                                                                button.operator:hover {
-                                                                                    background: rgb(192, 190, 190);
-                                                                                }
-                                                                                
-                                                                                button {
-                                                                                    border: none;
-                                                                                    background: lightgoldenrodyellow;
-                                                                                    width: 100%;
-                                                                                    height: 80px;
-                                                                                    cursor: pointer;
-                                                                                    font-size: 70%;
-                                                                                    font-family: 'Stylish';
-                                                                                }
-                                                                                
-                                                                                button.operator {
-                                                                                    background: lightcoral;
-                                                                                }
-                                                                                
-                                                                                .display {
-                                                                                    text-align: right;
-                                                                                    font-size: 100%;
-                                                                                }
-                                                                                
-                                                                                .calc-buttons {
-                                                                                    display: grid;
-                                                                                    grid-template-columns: repeat(4, 1fr);
-                                                                                    grid-template-rows: repeat(5, 1fr);
-                                                                                }
-                                                                                
-                                                                                .operator {
-                                                                                    grid-column: 4/4;
-                                                                                }
-                                                                                
-                                                                                input {
-                                                                                    width: 100%;
-                                                                                    height: 50%;
-                                                                                    margin-bottom: 3%;
-                                                                                    padding: 8%;
-                                                                                    text-align: right;
-                                                                                    background: lightgoldenrodyellow;
-                                                                                    border: none;
-                                                                                }
-                                                                                
-                                                                                .equals {
-                                                                                    grid-column: 3/5;
-                                                                                }
-                                                                                
-                                                                                .delete-all,
-                                                                                .equals {
-                                                                                    background: lightblue;
-                                                                                }
-                                                                                
-                                                                                .banner {
-                                                                                    grid-column: 2/4;
-                                                                                    text-align: center;
-                                                                                    font-size: 55%
-                                                                                }
-                                                                                
-                                                                                @media only screen and (max-width: 600px) {
-                                                                                    body {
-                                                                                        width: 180%;
-                                                                                        transform: translateX(-22%)
-                                                                                    }
+/* Reset some default styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Stylish", sans-serif;
+  font-size: 16px;
+  color: #333; /* Changed text color to a darker gray */
+  background: #f5f5f5; /* Light gray background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.calculator {
+  position: relative;
+  width: 30%;
+  max-width: 400px;
+  border-radius: 15px;
+  margin: auto;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Subtle box shadow */
+  background: #fff; /* White background */
+}
+
+/* Improved button styles */
+button:hover,
+button.operator:hover {
+  background: #ddd; /* Light gray on hover */
+  transition: background 0.2s ease-in-out;
+}
+
+button {
+  border: none;
+  background: #f0f0f0; /* Light gray background */
+  width: 100%;
+  height: 60px;
+  cursor: pointer;
+  font-size: 18px;
+  font-family: "Stylish", sans-serif;
+  transition: background 0.2s ease-in-out;
+  color: #444; /* Dark gray text color */
+}
+
+button.operator {
+  background: #ff6b6b; /* Red for operators */
+  color: #fff; /* White text color */
+}
+
+.display {
+  text-align: right;
+  font-size: 32px; /* Increased font size for a bigger display */
+  margin-bottom: 10px;
+  padding: 12px; /* Increased padding for better visibility */
+  background: #f0f0f0;
+  height: 55px;
+  border: none;
+  color: #444;
+}
+
+.calc-buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 5px;
+}
+
+.operator {
+  grid-column: 4/5;
+}
+
+input {
+  width: 100%;
+  height: 30px;
+  padding: 8px;
+  text-align: right;
+  background: #f0f0f0;
+  border: none;
+  color: #444;
+}
+
+.equals {
+  grid-column: span 2;
+}
+
+.delete-all,
+.equals {
+  background: #6cc1d0; /* Light blue */
+  color: #fff; /* White text color */
+}
+
+.banner {
+  grid-column: span 2;
+  text-align: center;
+  font-size: 20px;
+  color: #555; /* Dark gray text color */
+}
+
+/* Added media query for smaller screens */
+@media only screen and (max-width: 600px) {
+  body {
+    width: 100%;
+    transform: none;
+  }
+
+  .calculator {
+    width: 80%;
+  }
+}
