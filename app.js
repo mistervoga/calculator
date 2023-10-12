@@ -10,10 +10,25 @@ const decimal = document.querySelector(".decimal");
 let firstOperand = ""; // Stores the first operand
 let operator = null; // Stores the selected operator
 let secondOperand = ""; // Stores the second operand
+let resultDisplayed = false;
 
 // Function to update the display
 function updateDisplay() {
-  display.value = firstOperand + (operator ? operator : "") + secondOperand;
+  let displayedFirstOperand = firstOperand === "" ? "0" : firstOperand;
+  let displayedSecondOperand = secondOperand === "" ? "" : secondOperand;
+
+  // Ensure the first operand always has at least one digit before the decimal point
+  if (displayedFirstOperand === "." || displayedFirstOperand === "-.") {
+    displayedFirstOperand = "0" + displayedFirstOperand;
+  }
+
+  // Ensure the second operand always has at least one digit before the decimal point
+  if (displayedSecondOperand === "." || displayedSecondOperand === "-.") {
+    displayedSecondOperand = "0" + displayedSecondOperand;
+  }
+
+  display.value =
+    displayedFirstOperand + (operator ? operator : "") + displayedSecondOperand;
 }
 
 // Function to handle number button clicks
@@ -21,7 +36,13 @@ numbers.forEach((number) => {
   number.addEventListener("click", function (e) {
     if (operator === null) {
       // If no operator is selected, update the first operand
-      firstOperand += e.target.value;
+      if (resultDisplayed) {
+        // Reset the first operand if a result was displayed
+        firstOperand = e.target.value;
+        resultDisplayed = false;
+      } else {
+        firstOperand += e.target.value;
+      }
     } else {
       // If an operator is selected, update the second operand
       secondOperand += e.target.value;
@@ -29,7 +50,6 @@ numbers.forEach((number) => {
     updateDisplay();
   });
 });
-
 // Function to handle operator button clicks
 operators.forEach((operatorButton) => {
   operatorButton.addEventListener("click", function (e) {
@@ -49,6 +69,7 @@ equals.addEventListener("click", function () {
     );
     secondOperand = "";
     operator = null;
+    resultDisplayed = true; // Indicate that a result has been displayed
     updateDisplay();
   }
 });
@@ -58,6 +79,7 @@ clear.addEventListener("click", function () {
   firstOperand = "";
   secondOperand = "";
   operator = null;
+  resultDisplayed = false; // Reset the resultDisplayed flag
   updateDisplay();
 });
 
@@ -65,11 +87,11 @@ clear.addEventListener("click", function () {
 decimal.addEventListener("click", function () {
   if (operator === null) {
     if (!firstOperand.includes(".")) {
-      firstOperand += ".";
+      firstOperand += firstOperand === "" ? "0." : ".";
     }
   } else {
     if (!secondOperand.includes(".")) {
-      secondOperand += ".";
+      secondOperand += secondOperand === "" ? "0." : ".";
     }
   }
   updateDisplay();
