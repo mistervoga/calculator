@@ -97,6 +97,42 @@ decimal.addEventListener("click", function () {
   updateDisplay();
 });
 
+// Function to handle keyboard input
+document.addEventListener("keydown", function (event) {
+  // Prevent default browser behavior for certain keys
+  if (["/", "*", "+", "-", "Enter"].includes(event.key)) {
+    event.preventDefault();
+  }
+
+  // Check if the key pressed is a number block key
+  if (event.key >= "0" && event.key <= "9") {
+    if (operator === null) {
+      firstOperand += event.key;
+    } else {
+      secondOperand += event.key;
+    }
+    updateDisplay();
+  } else if (["+", "-", "*", "/"].includes(event.key)) {
+    operator = event.key;
+    updateDisplay();
+  } else if (event.key === "Enter") {
+    handleEquals();
+  }
+});
+
+// Function to handle the equals key
+function handleEquals() {
+  if (firstOperand !== "" && secondOperand !== "") {
+    firstOperand = String(
+      operate(operator, parseFloat(firstOperand), parseFloat(secondOperand))
+    );
+    secondOperand = "";
+    operator = null;
+    resultDisplayed = true;
+    updateDisplay();
+  }
+}
+
 // Arithmetic operations
 function add(a, b) {
   return a + b;
